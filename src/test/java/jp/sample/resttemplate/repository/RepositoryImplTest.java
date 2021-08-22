@@ -34,6 +34,7 @@ class RepositoryImplTest {
         response.put("id", 111);
         response.put("name",  "hoge");
         
+        // hoge
         MockRestServiceServer mockServer = MockRestServiceServer.bindTo(this.restTemplate).build();
         mockServer.expect(requestTo("http://localhost/external"))
                     .andRespond(withSuccess("{\"id\":\"123\", \"title\":\"タイトル\", \"finished\":false}", MediaType.APPLICATION_JSON));
