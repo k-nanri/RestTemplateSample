@@ -13,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureMockRestServiceServer;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.test.web.client.ResponseCreator;
 import org.springframework.web.client.RestTemplate;
 
 @AutoConfigureMockRestServiceServer
@@ -30,16 +33,14 @@ class RepositoryImplTest {
     @Test
     void testGet() {
         
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", 111);
-        response.put("name",  "hoge");
-        
-        // 
         MockRestServiceServer mockServer = MockRestServiceServer.bindTo(this.restTemplate).build();
+        
+        Resource responseBody = new ClassPathResource("test.json");
+        //mockServer.expect(requestTo("http://localhost/external"))
+        //            .andRespond(withSuccess("{\"id\":\"123\", \"title\":\"タイトル\", \"finished\":false}", MediaType.APPLICATION_JSON));
         mockServer.expect(requestTo("http://localhost/external"))
-                    .andRespond(withSuccess("{\"id\":\"123\", \"title\":\"タイトル\", \"finished\":false}", MediaType.APPLICATION_JSON));
+                    .andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
         
         repo.get();
     }
-
 }
