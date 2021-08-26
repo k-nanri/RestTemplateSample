@@ -17,5 +17,12 @@ public class Products {
      */
     @JsonProperty("products")
     private List<Product> products = new ArrayList<>();
-
+    
+    public int getLen() {
+        return this.products.size();
+    }
+    
+    public Product getProduct(int index) {
+        return this.products.get(index);
+    }
 }
