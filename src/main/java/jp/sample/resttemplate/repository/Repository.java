@@ -1,7 +1,9 @@
 package jp.sample.resttemplate.repository;
 
+import jp.sample.resttemplate.model.Products;
+
 public interface Repository {
     
-    public void get();
+    public Products getProducts();
 
 }

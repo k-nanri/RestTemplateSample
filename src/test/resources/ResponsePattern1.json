@@ -1,0 +1,11 @@
+{
+    "products" : [
+        {
+            "productCode" : 111111,
+            "supplierCode" : 22222,
+            "productName" : "pipe",
+            "productPrice" : 1000,
+            "maker" : "happy hello"
+        }
+    ]
+}
