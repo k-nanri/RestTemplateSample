@@ -1,7 +1,6 @@
 package jp.sample.resttemplate.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
@@ -35,8 +34,7 @@ class RepositoryImplTest {
         
         MockRestServiceServer mockServer = MockRestServiceServer.bindTo(this.restTemplate).build();
         
-        Resource responseBody = new ClassPathResource("test.json");
-        mockServer.expect(requestTo("http://localhost/external"))
+        mockServer.expect(requestTo("http://localhost/products"))
                     .andRespond(withSuccess("{\"products\":[ { \"productCode\": 1234, \"supplierCode\":4566, \"productName\":\"test\", \"productPrice\": 2000, \"maker\":\"happy happy\"}]}", MediaType.APPLICATION_JSON));
         
         Products actual = repo.getProducts();
@@ -48,11 +46,11 @@ class RepositoryImplTest {
                 () -> {
                     Product product = actual.getProduct(0);
                     assertAll(
-                            () -> assertEquals(111111, product.getProductCode()),
-                            () -> assertEquals(22222, product.getSupplierCode()),
-                            () -> assertEquals("pipe", product.getName()),
-                            () -> assertEquals(1000, product.getPrice()),
-                            () -> assertEquals("happy hello", product.getMaker())
+                            () -> assertEquals(1234, product.getProductCode()),
+                            () -> assertEquals(4566, product.getSupplierCode()),
+                            () -> assertEquals("test", product.getName()),
+                            () -> assertEquals(2000, product.getPrice()),
+                            () -> assertEquals("happy happy", product.getMaker())
                      );
                 }
         );
