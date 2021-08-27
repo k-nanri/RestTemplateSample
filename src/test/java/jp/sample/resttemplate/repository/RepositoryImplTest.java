@@ -36,12 +36,26 @@ class RepositoryImplTest {
         MockRestServiceServer mockServer = MockRestServiceServer.bindTo(this.restTemplate).build();
         
         Resource responseBody = new ClassPathResource("test.json");
-        //mockServer.expect(requestTo("http://localhost/external"))
-        //            .andRespond(withSuccess("{\"id\":\"123\", \"title\":\"タイトル\", \"finished\":false}", MediaType.APPLICATION_JSON));
-        mockServer.expect(requestTo("http://localhost/products"))
-                    .andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
+        mockServer.expect(requestTo("http://localhost/external"))
+                    .andRespond(withSuccess("{\"products\":[ { \"productCode\": 1234, \"supplierCode\":4566, \"productName\":\"test\", \"productPrice\": 2000, \"maker\":\"happy happy\"}]}", MediaType.APPLICATION_JSON));
         
-        repo.getProducts();
+        Products actual = repo.getProducts();
+        
+        assertAll(
+                () -> {
+                    assertEquals(1, actual.getLen());
+                },
+                () -> {
+                    Product product = actual.getProduct(0);
+                    assertAll(
+                            () -> assertEquals(111111, product.getProductCode()),
+                            () -> assertEquals(22222, product.getSupplierCode()),
+                            () -> assertEquals("pipe", product.getName()),
+                            () -> assertEquals(1000, product.getPrice()),
+                            () -> assertEquals("happy hello", product.getMaker())
+                     );
+                }
+        );
         
     }
     
