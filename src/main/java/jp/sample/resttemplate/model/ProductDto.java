@@ -7,14 +7,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @ToString
+@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
-    
+public class ProductDto {
+
     /**
      * 商品コード
      */
@@ -45,10 +47,5 @@ public class Product {
     @JsonProperty("maker")
     private String maker = null;
     
-    private List<String> list;
-    
-    public void add(String a) {
-        list.add(a);
-    }
-
+    private List list;
 }

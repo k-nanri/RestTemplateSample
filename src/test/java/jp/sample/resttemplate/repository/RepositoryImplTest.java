@@ -54,7 +54,6 @@ class RepositoryImplTest {
                      );
                 }
         );
-        
     }
     
     @Test
@@ -93,7 +92,7 @@ class RepositoryImplTest {
         
         MockRestServiceServer mockServer = MockRestServiceServer.bindTo(this.restTemplate).build();
         
-        // src/java/resources配下のJSONファイル
+        // テストソースと同一ディレクトリのJSONファイル
         Resource responseBody = new ClassPathResource("ResponsePattern2.json", this.getClass());
         mockServer.expect(requestTo("http://localhost/products"))
                     .andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
